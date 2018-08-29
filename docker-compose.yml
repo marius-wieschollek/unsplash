@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+  mysql:
+    image: mariadb
+    container_name: "unsplash-mysql"
+    restart: on-failure
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  app:
+    build: ./docker/php/
+    container_name: "unsplash-php"
+    restart: on-failure
+    links:
+      - mysql
+    volumes:
+      - /var/www/html
+      - ./:/var/www/html/custom_apps/unsplash
+    environment:
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=admin
+      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=mysql:3306
+
+  web:
+    build: ./docker/nginx/
+    container_name: "unsplash-nginx"
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - app
+    volumes_from:
+      - app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "unsplash-phpmyadmin"
+    ports:
+      - 8080:80
+    links:
+      - mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "nextcloud"
+      PMA_ABSOLUTE_URI: http://localhost:8080
+      PMA_HOSTS: mysql
+      PMA_USER: root
+      PMA_PASSWORD: nextcloud
+
+volumes:
+  mysql:
