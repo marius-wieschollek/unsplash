@@ -21,11 +21,15 @@ style('unsplash', 'settings');
     <form>
         <div>
             <input id="unsplash-style-login" name="unsplash-style-login" data-setting="style/login" type="checkbox" <?=$_['styleLogin'] ? 'checked':''?> class="checkbox">
-            <label for="unsplash-style-login"><? p($l->t('Set random image as login background')); ?></label>
+            <label for="unsplash-style-login"><? p($l->t('Use random background image for login and public pages for visitors')); ?></label>
         </div>
         <div>
             <input id="unsplash-style-header" name="unsplash-style-header" data-setting="style/header" type="checkbox" <?=$_['styleHeader'] ? 'checked':''?> class="checkbox">
-            <label for="unsplash-style-header"><? p($l->t('Set random image as header background')); ?></label>
+            <label for="unsplash-style-header"><? p($l->t('Use random background image for navigation bar and public pages for users')); ?></label>
+        </div>
+        <div>
+            <input id="unsplash-keep-image" name="unsplash-keep-image" data-setting="image/persistence" type="checkbox" <?=$_['keepImage'] ? 'checked':''?> class="checkbox">
+            <label for="unsplash-keep-image"><? p($l->t('Use the same image for the whole session')); ?></label>
         </div>
         <br>
         <div>

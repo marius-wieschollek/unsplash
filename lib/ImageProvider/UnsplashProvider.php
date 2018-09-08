@@ -59,8 +59,10 @@ class UnsplashProvider implements ProviderInterface {
             $isDark = $this->util->invertTextColor($info->color);
 
             $images[] = $this->imageService->create(
+                $info->urls->small,
                 $info->urls->regular,
-                $info->user->profile_image->small,
+                $info->urls->full,
+                $info->user->profile_image->medium,
                 $info->links->html,
                 $info->user->name,
                 $subject,
