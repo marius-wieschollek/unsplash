@@ -14,7 +14,7 @@ services:
       - MYSQL_USER=nextcloud
 
   app:
-    build: ./docker/php/
+    image: nextcloud:fpm
     container_name: "unsplash-php"
     restart: on-failure
     links:
