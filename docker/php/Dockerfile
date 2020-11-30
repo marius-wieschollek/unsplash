@@ -1,4 +1,4 @@
-FROM nextcloud:fpm
+FROM nextcloud:20-fpm
 
 RUN pecl install xdebug
 
